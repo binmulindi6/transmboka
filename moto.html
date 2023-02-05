@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document de Bord</title>
+    <link rel="stylesheet" href="assets/css/moto.css">
+    <script src="/assets/js/htmltoimage.min.js"></script>
+    <script src="/assets/js/screenshot.min.js"></script>
+    <script src="/assets/js/jsbarcode.min.js"></script>
+    <script src="/assets/js/jquery.min.js" ></script>
+    <script src="/assets/js/qrcode.min.js" ></script>
+</head>
+<body>
+    <div id="root">
+
+        <div class="btn-container">
+            <button id="btn-generate-front" >Generate</button>
+            <button id="btn-clear-front" >Clear</button>
+            <button id="btn-download"onclick="takeshot()" >Download</button>
+           </div>
+
+           <div>
+            <h1>Screenshot :</h1>
+            <div id="output"></div>
+           </div>
+        <br>
+         
+            <div id="card-back" class="card-container">
+                <div class="container header">
+                   <span class="min">MINISTERE DES TRANSPORTS ET VOIES DES COMMUNICATIONS</span>
+                
+                </div>
+                <div class="container card-body">
+                    <div class="images">
+                        <img src="/assets/img/bike.png" alt="">
+                        <img src="/assets/img/tricyle.png" alt="">
+                    </div>
+                    <div class="text">
+                        <span id="division">DIVISION PRONVINCIALE <span id="sud-kivu">DU SUD-KIVU</span></span>
+                        <span class="text-2">
+                            Les autoritées politico-adminitratives, policiers et militaires sont priés de parler leur assistance en cas de nécessité.
+                        </span>
+                    </div>
+                </div>
+                <div class="container footer">
+                    <!-- <div class="dates">
+                        <div class="dates-content"><span>Date de délivrance :</span> <span id="date-delivrance"></span></div>
+                        <div class="dates-content">
+                            <span>Date d'éxpiration :</span> <span id="date-expiration"></span>
+                        </div>
+                    </div> -->
+                    <svg id="barcode" class="barcode"></svg>
+                    </svg>
+                    <!-- <svg id="barcode" class="barcode"
+                        jsbarcode-fontsize="40"
+                        jsbarcode-height="100"
+                        jsbarcode-width="10"
+                        jsbarcode-format="upc"
+                        jsbarcode-value="123456789012"
+                        jsbarcode-textmargin="0"
+                        jsbarcode-fontoptions="bold">
+                    </svg> -->
+
+                </div>
+            </div>
+        
+            <div id="card-front" class="card-container">
+                <div class="card-front-header">
+                    <img class="icons" src="/assets/img/flag.png"  alt="flag">
+                    <div class="card-front-titles">
+                        <span class="rep">REPUBLIQUE DEMOCRATIQUE DU CONGO</span>
+                        <span class="prov">PROVINCE DU SUD-KIVU</span>
+                        <span class="front-min">MINISTERE DES TRANSPORTS ET VOIES DES COMMUNICATIONS</span>
+                        <span class="carte">CARTE D'IDENTITE DES MOTOCYCLISTES N°<span id="numero-carte">0001</span></span>
+                    </div>
+                    <img class="icons" src="/assets/img/armoirie.png"  alt="armoirie">
+                </div>               
+                <div class="joker">
+                    <div class="nn"><span >NN<span id="nn"></span></span></div>
+                    <div class="card-front-body">
+                        
+                        <div class="avatar-container">
+                            <!-- <img id="qr-code" src="" alt=""> -->
+                            <img id="avatar"/>
+                        </div>
+                        <table class="identity" >
+                            <tr class="identity-data">
+                                <td class="identity-title">NOM & POST-NOM </td> <td id="nom" class="identity-data-content"></tdtd>
+                            </tr>
+                            <tr class="identity-data">
+                                <td class="identity-title">PRENOM </td> <td id="prenom" class="identity-data-content"></td>
+                            </tr>
+                            <tr class="identity-data">
+                                <td class="identity-title">NATIONALITE </td> <td id="nationalite" class="identity-data-content"></td>
+                            </tr>
+                            <tr class="identity-data">
+                                <td class="identity-title">PROFESSION</td> <td id="profession" class="identity-data-content"></td>
+                            </tr>
+                            <tr class="identity-data">
+                                <td class="identity-title">LIEU ET DATE DE NAISSANCE </td> <td id="naissance" class="identity-data-content"></td>
+                            </tr>
+                            <tr class="identity-data">
+                                <td class="identity-title">ADRESSE ACTUELLE </td> <td id="adresse" class="identity-data-content"></td>
+                            </tr>
+                        </table>
+                        
+                    </div>
+                    <hr id="line">
+                    <div class="card-front-footer">
+                        <div>
+                            <table>
+                                <tr class="dates-content" ><td>DATE DE DELIVRANCE </td> <td id="date-delivrance" class="identity-data-content"></td></tr>
+                                    <tr class="dates-content">
+                                        <td>DATE D'EXPIRATION </td> <td id="date-expiration" class="identity-data-content"></td>
+                                    </tr>
+                            </table>
+                        </div>
+                        <div class="qr-container">
+                                <!-- <img id="qr-code" src="" alt=""> -->
+                                <div id="qrcode"></div> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+</body>
+<script src="/assets/js/moto.js" ></script>
+</html>

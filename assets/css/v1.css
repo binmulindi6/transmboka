@@ -1,0 +1,222 @@
+|
+*{
+    box-sizing: border-box;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    /* font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
+}
+
+
+#root{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+body{
+    background: rgb(193, 193, 193);
+}
+
+
+.card-container{
+    width: 1620px;
+    height: 1020px;
+    /* background: red; */
+    background: rgb(253, 253, 253);
+    font-size: 10px;
+    box-sizing: border-box;
+}
+/* .card-container{
+    width: 324px;
+    height: 204px;
+    background: rgb(253, 253, 253);
+    font-size: 10px;
+    box-sizing: border-box;
+} */
+
+.container{
+    /* padding: 2px; */
+    display: flex;
+    flex-direction: column;
+    font-size: 50px;
+}
+.header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 40px;
+    gap:10px;
+    background: yellow;
+    padding: 0 5px 0 5px;
+}
+
+.icons{
+    height: 28px;
+}
+
+.titles{
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.rep{
+    display: block;
+    font-size: 10px;
+    color: blue;
+    font-weight: 600;
+    /* font-family: 'Times New Roman', Times, serif */
+}
+
+.prov{
+    font-weight: 600;
+    display: block;
+    font-size: 10px;
+    color: red;
+}
+
+.min{
+    font-weight: 600;
+    display: block;
+    font-size: 10px;
+}
+
+.card-body{
+    /* background-image: url(/assets/img/armoirie.png);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat; */
+    position: relative;
+    height: 144px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-size: 12px;
+}
+
+.card-body::after{
+    content: "";
+    background-image: url(/assets/img/armoirie.png);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    /* opacity: 0.2; */
+    height: 90%;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    opacity: 0.1;
+}
+
+.card-body span{
+    text-align: center;
+    font-weight: 700;
+    color: #0e4fdb;
+
+}
+
+.card-body ul {
+    list-style: decimal;
+    font-weight: 700;
+}
+
+
+.card-body .text{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    
+}
+.footer{
+    background: yellow;
+    height: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.dates{
+    display: flex;
+    flex-direction: column;
+}
+.dates span{
+    font-size: 7px;
+}
+
+.id-number{
+    font-size: 10px;
+}
+/*///////////////////////////// FRONT-*/
+
+#card-front{
+    /* position: relative; */
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+    justify-content: center;
+    gap: 10px;
+
+}
+.card-front-title{
+    display: flex;
+    justify-content: center;
+}
+
+.card-front-title span{
+    color: #fff;
+    font-style: italic;
+    /* oy */
+    font-size: 80px;
+    background-color: #3684e3;
+    padding: 2px 4px ;
+    /* text-shadow: rgb(43, 191, 255) 2px 0px 0px, rgb(43, 191, 255) 1.75517px 0.958851px 0px, rgb(43, 191, 255) 1.0806px 1.68294px 0px, rgb(43, 191, 255) 0.141474px 1.99499px 0px, rgb(43, 191, 255) -0.832294px 1.81859px 0px, rgb(43, 191, 255) -1.60229px 1.19694px 0px, rgb(43, 191, 255) -1.97998px 0.28224px 0px, rgb(43, 191, 255) -1.87291px -0.701566px 0px, rgb(43, 191, 255) -1.30729px -1.5136px 0px, rgb(43, 191, 255) -0.421592px -1.95506px 0px, rgb(43, 191, 255) 0.567324px -1.91785px 0px, rgb(43, 191, 255) 1.41734px -1.41108px 0px, rgb(43, 191, 255) 1.92034px -0.558831px 0px; */
+}
+
+.card-front-body{
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+#card-front{
+    position: relative;
+   
+}
+#card-front::after{
+    content: "";
+    background-image: url(/assets/img/armoirie.png);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin-top: 20px;
+    height: 80%;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    opacity: 0.1;
+}
+
+.identity{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 40px;
+}
+
+.qr-container{
+    height: 80px;
+    width: 80px;
+    /* padding: 2px; */
+    border: 0.5px solid rgb(125, 125, 125);
+}
+
+#qr{
+    height: 80px;
+}
