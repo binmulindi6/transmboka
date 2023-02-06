@@ -153,6 +153,7 @@ function checkData(data){
 
 function checkDocs(data){
     // console.log(docs)
+    // console.log(data)
     let docs = data
     if(docs.length > 0){ 
         let sameDocs = new Array()
@@ -210,18 +211,19 @@ function checkDocs(data){
             
             console.log(index)
            let doc2 = docs2[index]
-                console.log(doc2)
+                // console.log(doc2)
                 if(
                     !docs.find(it=>{
                         return it.date_enreg_banq === doc2.date_enreg_banq
                     })
-                ){
-                    docs2.length > 0 && separateDocs.push(doc2)
-                    docs2 = docs2.filter(it=>{
-                        it.date_enreg_banq !== doc2.date_enreg_banq
-                    })
-                }
-                doc2.length > 0 && separateDocs.push(doc2)
+                    ){
+                        docs2 = docs2.filter(it=>{
+                            return it.date_enreg_banq !== doc2.date_enreg_banq
+                        })
+                        docs2.length > 0 && separateDocs.push(doc2)
+                    }
+                    // docs2.length > 0 && separateDocs.push(docs2)
+                    // console.log(docs2)
 
             // if(sameDocs.length > 0) { 
             //     docs2 = docs.filter(it=>{
