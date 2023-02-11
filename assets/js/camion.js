@@ -1,6 +1,13 @@
+var qrcode = new QRCode("qrcode");
+
+function makeCode (elText) {    
+  qrcode.makeCode(elText.value);
+}
+
+
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
-const ID =  urlParams.get('id_cond')
+const ID =  urlParams.get('id_mt')
 console.log(ID)
 
 let CardData = {}
@@ -19,25 +26,25 @@ const GetHeader = () => {
 
 ///Fech data
 
-fetch(
-    "https://webapp.e-transport.cd/api/controller.php?fetch_motard_details_for_card=&id=" + ID,
-    { headers: GetHeader }
-  )
-    .then((res) => res.json())
-    .then((res) => {
-        if(res[0].code_unique_cond){
-            CardData = res[0]
-            console.log(CardData)
-            showData(loadData(CardData))
+// fetch(
+//     "https://webapp.e-transport.cd/api/controller.php?fetch_motard_details_for_card=&id=" + ID,
+//     { headers: GetHeader }
+//   )
+//     .then((res) => res.json())
+//     .then((res) => {
+//         if(res[0].code_unique_cond){
+//             CardData = res[0]
+//             console.log(CardData)
+//             showData(loadData(CardData))
 
-        }else{
-            console.log(res)
-        }
+//         }else{
+//             console.log(res)
+//         }
 
-    })
-.catch((error) => {
-      console.error('Error:', error)
-})
+//     })
+// .catch((error) => {
+//       console.error('Error:', error)
+// })
 
 
 //btn
@@ -47,14 +54,16 @@ let btnDownload = document.querySelector('#btn-download')
 // btnDownload.style.display = 'none';
 
 //identityData holders
-let nom = document.querySelector('#nom');
-let prenom = document.querySelector('#prenom');
-let nationalite = document.querySelector('#nationalite');
-let profession = document.querySelector('#profession');
+let plaque = document.querySelector('#plaque');
+let chassis = document.querySelector('#chassis');
+let marque = document.querySelector('#marque');
+let poids = document.querySelector('#poids');
+let capacite = document.querySelector('#capacite');
+let genre = document.querySelector('#genre');
+let couleur = document.querySelector('#couleur');
+let proprietaire = document.querySelector('#proprietaire');
 let adresse = document.querySelector('#adresse');
-let numero = document.querySelector('#numero-carte');
-let nn = document.querySelector('#nn');
-let avatar = document.querySelector('#avatar');
+let idMt = document.querySelector('#id_mt');
 
 //codes
 let qrCode = document.querySelector('#qrcode')
@@ -89,50 +98,53 @@ const loadData = (data) => {
 function showData(data){
     generateData(data)
     qrcode.makeCode(data.nn);
-    btnDownload.style.display = 'block';
+    // btnDownload.style.display = 'block';
 }
 
-//handeler
-
-// JsBarcode(".barcode").init();
-// JsBarcode('#barcode','154245454').init();
 
 
+const identityData ={
+    plaque: "2444AB22",
+    chassis: "4875921",
+    marque: 'SUZUKI/M12',
+    poidsAVide: '9 T',
+    capacite: '19 T',
+    genre: 'CAMION',
+    couleur: 'Noire',
+    proprietaire: 'MUTIMULA JEACQUE',
+    adresse: 'Panzi, JEAN-MIRUHO',
+    idMt: 'M12345678945651'
+}
 
-btnGenerateFront.addEventListener('click', ()=>{
-    generateData(identityData)
-    qrcode.makeCode(identityData.nn);
-    btnDownload.style.display = 'block';
-});
+generateData(identityData)
 
-btnClearFront.addEventListener('click', ()=>{
-    clearData()
-    btnDownload.style.display = 'none';
-})
+// btnGenerateFront.addEventListener('click', ()=>{
+//     generateData(identityData)
+//     qrcode.makeCode(identityData.nn);
+//     btnDownload.style.display = 'block';
+// });
+
+// btnClearFront.addEventListener('click', ()=>{
+//     clearData()
+//     btnDownload.style.display = 'none';
+// })
 
 
 function generateData(data){
 
-    //back
-    // codeBar.jsbarcodeValue = data.numeroId
-    // console.log(codeBar)
-    dateDelivrance.innerHTML = data.dateDelivrance
-    dateExpiration.innerHTML = data.dateExpiration
+    plaque.innerHTML =  data.plaque
+    chassis.innerHTML =  data.chassis
+    marque.innerHTML =  data.marque
+    poids.innerHTML =  data.poidsAVide
+    capacite.innerHTML =  data.capacite
+    genre.innerHTML =  data.genre
+    couleur.innerHTML =  data.couleur
+    proprietaire.innerHTML =  data.proprietaire
+    adresse.innerHTML = data.adresse
+    idMt.innerHTML = data.idMt
 
-    nom.innerHTML =  data.nom
-    prenom.innerHTML =  data.prenom
-    nationalite.innerHTML =  data.nationalite
-    profession.innerHTML =  data.profession
-    naissance.innerHTML =  data.naissance
-    adresse.innerHTML =  data.adresse
-    numero.innerHTML =  data.numero
-    nn.innerHTML =  data.nn
-    avatar.src = data.img
-    // garage.innerHTML =  data.garage
-    // noPvExpertise.innerHTML =  data.noPvExpertise
-    // qrCode.style.height = '100%';
-    // qrCode.src = data.qrCode
-    // // document.getElementById('output').innerHTML = '';
+    //qr
+    qrcode.makeCode(data.idMt);
 }
 
 function clearData(){
@@ -214,8 +226,3 @@ function download(canvas, filename) {
 
 //Qarcode generator
 
-var qrcode = new QRCode("qrcode");
-
-function makeCode (elText) {    
-  qrcode.makeCode(elText.value);
-}

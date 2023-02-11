@@ -15,17 +15,14 @@
 <body>
     <div id="root">
 
+        
+        <div>
+            <h1>Carte :</h1>
+        </div>
         <div class="btn-container">
-            <button id="btn-generate-front" >Generate</button>
-            <button id="btn-clear-front" >Clear</button>
-            <button id="btn-download"onclick="takeshot()" >Download</button>
+            <button id="btn-download"onclick="takeshot()" >Telecharger</button>
            </div>
-
-           <div>
-            <h1>Screenshot :</h1>
-            <div id="output"></div>
-           </div>
-        <br>
+        
          
             <div id="card-back" class="card-container">
                 <div class="container header">
@@ -44,26 +41,7 @@
                         </span>
                     </div>
                 </div>
-                <div class="container footer">
-                    <!-- <div class="dates">
-                        <div class="dates-content"><span>Date de délivrance :</span> <span id="date-delivrance"></span></div>
-                        <div class="dates-content">
-                            <span>Date d'éxpiration :</span> <span id="date-expiration"></span>
-                        </div>
-                    </div> -->
-                    <svg id="barcode" class="barcode"></svg>
-                    </svg>
-                    <!-- <svg id="barcode" class="barcode"
-                        jsbarcode-fontsize="40"
-                        jsbarcode-height="100"
-                        jsbarcode-width="10"
-                        jsbarcode-format="upc"
-                        jsbarcode-value="123456789012"
-                        jsbarcode-textmargin="0"
-                        jsbarcode-fontoptions="bold">
-                    </svg> -->
-
-                </div>
+                
             </div>
         
             <div id="card-front" class="card-container">
@@ -87,22 +65,22 @@
                         </div>
                         <table class="identity" >
                             <tr class="identity-data">
-                                <td class="identity-title">NOM & POST-NOM </td> <td id="nom" class="identity-data-content"></tdtd>
+                                <td class="identity-title">NOM & POST-NOM :  <span id="nom" class="identity-data-content"></span> </td> 
                             </tr>
                             <tr class="identity-data">
-                                <td class="identity-title">PRENOM </td> <td id="prenom" class="identity-data-content"></td>
+                                <td class="identity-title">PRENOM : <span id="prenom" class="identity-data-content"></span> </td> 
                             </tr>
                             <tr class="identity-data">
-                                <td class="identity-title">NATIONALITE </td> <td id="nationalite" class="identity-data-content"></td>
+                                <td class="identity-title">NATIONALITE : <span id="nationalite" class="identity-data-content"></span> </td> 
                             </tr>
                             <tr class="identity-data">
-                                <td class="identity-title">PROFESSION</td> <td id="profession" class="identity-data-content"></td>
+                                <td class="identity-title">PROFESSION : <span id="profession" class="identity-data-content"></span></td> 
                             </tr>
                             <tr class="identity-data">
-                                <td class="identity-title">LIEU ET DATE DE NAISSANCE </td> <td id="naissance" class="identity-data-content"></td>
+                                <td class="identity-title">LIEU ET DATE DE NAISSANCE : <br> <span id="naissance" class="identity-data-content"></span></td> 
                             </tr>
                             <tr class="identity-data">
-                                <td class="identity-title">ADRESSE ACTUELLE </td> <td id="adresse" class="identity-data-content"></td>
+                                <td class="identity-title">ADRESSE ACTUELLE : <span id="adresse" class="identity-data-content"></span> </td> 
                             </tr>
                         </table>
                         
@@ -111,9 +89,9 @@
                     <div class="card-front-footer">
                         <div>
                             <table>
-                                <tr class="dates-content" ><td>DATE DE DELIVRANCE </td> <td id="date-delivrance" class="identity-data-content"></td></tr>
+                                <tr class="dates-content" ><td>DATE DE DELIVRANCE : </td> <td id="date-delivrance" class="identity-data-content"></td></tr>
                                     <tr class="dates-content">
-                                        <td>DATE D'EXPIRATION </td> <td id="date-expiration" class="identity-data-content"></td>
+                                        <td>DATE D'EXPIRATION : </td> <td id="date-expiration" class="identity-data-content"></td>
                                     </tr>
                             </table>
                         </div>

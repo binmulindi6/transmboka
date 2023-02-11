@@ -23,46 +23,29 @@ body{
     height: 1020px;
     /* background: red; */
     background: rgb(221, 218, 218);
-    font-size: 50px;
+    /* font-size: 50px; */
     box-sizing: border-box;
 }
-.card-front-container{
-    width: 1620px;
-    height: 1020px;
-    /* background: red; */
-    background: rgb(221, 218, 218);
-    font-size: 50px;
-    box-sizing: border-box;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-/* .card-container{
-    width: 324px;
-    height: 204px;
-    background: rgb(253, 253, 253);
-    font-size: 10px;
-    box-sizing: border-box;
-} */
 
 .container{
     /* padding: 2px; */
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    font-size: 50px;
-}
-.header{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    height: 200px;
-    gap:10px;
-    background: rgb(255, 255, 42);
-    padding: 0 25px 0 25px;
+    /* font-size: 50px; */
 }
 
+.header{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* height: 150px; */
+    /* gap:10px; */
+    /* background: rgb(255, 255, 42); */
+    /* padding: 30px 25px 0 25px; */
+    /* padding: 25px; */
+}
 .icons{
     height: 140px;
 }
@@ -74,26 +57,46 @@ body{
     /* font-weight: 600; */
 }
 
-.rep{
-    display: block;
-    font-size: 50px;
-    color: blue;
-    font-weight: 600;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+.min{
+    /* color: #26a307; */
+    font-size: 49px;
+    font-weight: 900;
+    margin-top: 30px;
+    margin-left: 20px;
+    margin-right: 20px;
 }
 
-.prov{
-    font-weight: 600;
-    display: block;
-    font-size: 50px;
+.text{
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+}
+#carte{
+    font-size: 45px;
+    font-weight: 800;
+    color:red;
+    border-bottom: 4px solid;
+    /* padding-bottom: 10px; */
+    padding-right: 5px;
+    padding-left: 5px;
+
+}
+
+#division{
+    font-size: 60px;
+}
+
+.text-2{
+    margin-top: 8px;
+    font-size: 40px; 
+    text-align: center;
+    font-weight: 500;  
+}
+
+#sud-kivu{
     color: red;
 }
 
-.min{
-    font-weight: 600;
-    display: block;
-    font-size: 50px;
-}
 
 .card-body{
     /* background-image: url(/assets/img/armoirie.png);
@@ -101,15 +104,18 @@ body{
     background-position: center;
     background-repeat: no-repeat; */
     position: relative;
-    height: 630px;
+    /* height: 630px; */
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    font-size: 60px;
+    margin-bottom: 50px;
 }
 
-#back{
+#card-back{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
     justify-content: space-between;
 }
 
@@ -126,30 +132,38 @@ body{
     right: 0px;
     bottom: 0px;
     left: 0px;
-    opacity: 0.2;
+    opacity: 0.1;
 }
 
 .card-body span{
-    font-size: 60px;
     text-align: center;
     font-weight: 1000;
     color: #00001eea;
 
 }
 
+.images{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    grid-column-gap: 100px;
+    grid-row-gap: 10px;
+}
+
+.images img{
+    height: 350px;
+}
+
+#img1{ grid-area:  1 / 1 / 2 / 2; margin-left: 100px;}
+#img2{ grid-area:  1 / 2 / 2 / 3;}
+#img4{ grid-area:  2 / 1 / 3 / 2;}
+#img3{ grid-area:  2 / 2 / 3 / 3;}
+
 .card-body ul {
     list-style: decimal;
     font-weight: 700;
 }
 
-
-.card-body .text{
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    
-}
 .footer{
     /* background: rgba(255, 255, 54, 0.986); */
     background: #fff;
@@ -185,38 +199,65 @@ body{
 
 #card-front{
     position: relative;
-    padding: 50px;
+    padding: 40px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* justify-content: space-between; */
-    gap: 20px;
+    justify-content: space-between;
+    gap: 10px;
 
 }
-.card-front-title{
+
+.card-front-header{
+    width: 100%;
     display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 20px;
+    border-bottom: 8px solid #000;
+}
+.card-front-titles{
+    display: flex;
+    flex-direction: column;
     justify-content: center;
-    font-weight: 600;
 }
 
-.card-front-title span{
-    color: #fff;
-    /* font-style: italic; */
-    border-radius: 20px;
-    font-weight: 600;
-    font-size: 85px;
-    background-color: #2180f4;
-    padding: 10px 20px ;
-    /* text-shadow: rgb(43, 191, 255) 2px 0px 0px, rgb(43, 191, 255) 1.75517px 0.958851px 0px, rgb(43, 191, 255) 1.0806px 1.68294px 0px, rgb(43, 191, 255) 0.141474px 1.99499px 0px, rgb(43, 191, 255) -0.832294px 1.81859px 0px, rgb(43, 191, 255) -1.60229px 1.19694px 0px, rgb(43, 191, 255) -1.97998px 0.28224px 0px, rgb(43, 191, 255) -1.87291px -0.701566px 0px, rgb(43, 191, 255) -1.30729px -1.5136px 0px, rgb(43, 191, 255) -0.421592px -1.95506px 0px, rgb(43, 191, 255) 0.567324px -1.91785px 0px, rgb(43, 191, 255) 1.41734px -1.41108px 0px, rgb(43, 191, 255) 1.92034px -0.558831px 0px; */
+.rep{
+    display: block;
+    font-size: 36px;
+    font-weight: 800;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.prov{
+    font-weight: 800;
+    display: block;
+    font-size: 36px;
+    color: rgb(53, 141, 214);
+}
+
+.front-min{
+    font-size: 36px;
+    font-weight: 800;
+    color: rgb(53, 141, 214);
+}
+.carte{
+    font-size: 36px;
+    font-weight: 800;
+}
+
+.card-front-titles span{
+    text-align: center;
 }
 
 .card-front-body{
     width: 100%;
     display: flex;
-    align-content: center;
     flex-direction: row;
-    flex-wrap: nowrap;
+    gap: 10px;
     justify-content: space-between;
+    align-items: center;
 }
 
 #card-front::after{
@@ -252,7 +293,14 @@ body{
     font-weight: 700;
 }
 
-.qr-container{
+.card-front-footer{
+    /* height: 200px; */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.avatar-container{
     background: #FFF;
     height: 400px;
     width: 400px;
@@ -263,21 +311,36 @@ body{
     justify-content: center;
     align-items: center;
 }
+.qr-container{
+    background: #FFF;
+    height: 400px;
+    width: 400px;
+    margin-top: auto;
+    margin-bottom: auto;
+    border: 0.5px solid rgb(125, 125, 125);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 20px;
+}
 
 #qrcode{
-    height: 80px;
+    height: 50px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-
+#qrcode canvas{
+    height: 100%;
+}
 #qrcode img{
-    height: 90%;
+    height: 400px;
+    
 }
 
 #line{
-    margin-top: 2px;
-    margin-bottom: 2px;
+    margin-top: 20px;
+    margin-bottom: 20px;
     /* border-top: 2px solid black; */
 }
 
@@ -285,32 +348,15 @@ body{
     width: 100%;
 }
 
-#btns{
+.nn{
     display: flex;
-    flex-direction: row;
-    gap: 20px;
+    justify-content: right;
+    margin-right: 30px;
+    font-size: 30px;
+    font-weight: 700;
 }
-
-#btns button{
-    font-size: 1.2rem;
-    padding: 5px 10px 5px 10px;
-    outline: none;
-    border: none;
-    border-radius: 5px;
-    background-color: #626262;
-    color: #FFF;
-    cursor: pointer;
-}
-
-.active{
-    background-color: #2180f4;
-}
-
-#doc-dispo{
-    font-size: 2rem;
-    font-weight: 600;
-    margin-bottom: 5px;
-    /* text-decoration: ; */
+#avatar{
+    height: 100%;
 }
 
 #btn-download{
@@ -319,12 +365,17 @@ body{
     outline: none;
     border: none;
     border-radius: 5px;
+    background-color: #5684da;
     color: #FFF;
-    background-color: #626262;
-    margin-bottom: 10px;
     cursor: pointer;
 }
+
 #btn-download:hover{
     background-color: #196506;
 
+}
+
+.id_mt{
+    font-size: 3.5rem;
+    font-weight: 700;
 }

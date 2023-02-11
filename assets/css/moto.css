@@ -97,16 +97,18 @@ body{
     background-position: center;
     background-repeat: no-repeat; */
     position: relative;
-    height: 630px;
+    /* height: 630px; */
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-bottom: 50px;
 }
 
 #card-back{
     display: flex;
     flex-direction: column;
+    gap: 10px;
     justify-content: space-between;
 }
 
@@ -141,7 +143,7 @@ body{
 }
 
 .images img{
-    height: 450px;
+    height: 600px;
 }
 
 .card-body ul {
@@ -189,7 +191,7 @@ body{
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    gap: 20px;
+    gap: 10px;
 
 }
 
@@ -240,7 +242,7 @@ body{
     width: 100%;
     display: flex;
     flex-direction: row;
-    gap: 30px;
+    gap: 10px;
     justify-content: left;
     align-items: center;
 }
@@ -298,8 +300,8 @@ body{
 }
 .qr-container{
     background: #FFF;
-    height: 230px;
-    width: 230px;
+    height: 200px;
+    width: 200px;
     margin-top: auto;
     margin-bottom: auto;
     border: 0.5px solid rgb(125, 125, 125);
@@ -319,7 +321,7 @@ body{
     height: 100%;
 }
 #qrcode img{
-    height: 230px;
+    height: 200px;
     
 }
 
@@ -342,4 +344,20 @@ body{
 }
 #avatar{
     height: 100%;
+}
+
+#btn-download{
+    font-size: 1.2rem;
+    padding: 5px 10px 5px 10px;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    background-color: #5684da;
+    color: #FFF;
+    cursor: pointer;
+}
+
+#btn-download:hover{
+    background-color: #196506;
+
 }

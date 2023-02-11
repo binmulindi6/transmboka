@@ -8,6 +8,7 @@ const btnInject = document.querySelector('#btn-inject')
 
 
 const btnsContainer = document.querySelector('#btns')
+const docDispo = document.querySelector('#doc-dispo')
 
 const frontRoot = document.getElementById('frontRoot')
 
@@ -16,7 +17,7 @@ function makeCode (elText) {
 }
 
 
-let SAMEDOCS = new Object();
+let SAMEDOCS = new Array();
 let SEPARATEDOCS = new Array();
 
 // console.log(product);
@@ -24,13 +25,12 @@ let SEPARATEDOCS = new Array();
 //headers
 const GetHeader = () => {
     const myHeaders = new Headers()
-    // myHeaders.set('Accept', 'application/json')
-    // myHeaders.set('Content-Type', 'multipart/form-data')
+    myHeaders.set("Cache-Control", "no-cache")
     myHeaders.set('Access-Control-Allow-Origin', 'no-cors')
-    myHeaders.set('Cache-Control', 'no-cache')
     myHeaders.set('Pragma', 'no-cache')
     myHeaders.set('Expires', '0')
     myHeaders.set('mode', 'no-cors')
+    return myHeaders
 
   }
 //headers
@@ -56,27 +56,48 @@ fetch(
     .then((res) => {
     //   console.log(res)
       //chck
-      const data = (checkData(res))
-    //   console.log(data)
-    //   manageDataSeparation(data)
-    //   btnsContainer.innerHTML =  generateBtns()
-    //   console.log({SAMEDOCS : SAMEDOCS})
-    //   console.log({SEPARATEDOCS : SEPARATEDOCS})
-
+      if (res.docs.length > 0) {
+          const data = (checkData(res))
+            // console.log(data)
+            manageDataSeparation(data)
+            btnsContainer.innerHTML =  generateBtns()
+            const showBtns = document.querySelectorAll('.show-btn')
+            addActive(showBtns)
+            // console.log(showBtns)
+            // console.log({SAMEDOCS : SAMEDOCS})
+            // console.log({SEPARATEDOCS : SEPARATEDOCS})
+        } else {
+            docDispo.innerHTML = `Pas de Document pour Impression`
+        }
 
     })
 .catch((error) => {
       console.error('Error:', error)
 })
 
+function addActive(nodeList) {
+    nodeList.forEach(btn=>{
+        btn.addEventListener('click', ()=> {
+            console.log(btn)
+            nodeList.forEach(btnn => {
+                // btnn.classList.remove('active')
+                btnn.style.backgroundColor = '#626262' 
+            })
+            btn.style.backgroundColor = '#2180f4' 
+            // ('active')
+        })
+    })
+}
+
 function setPrinted(){
 
 }
 
 
-function sameDocsHandeler(){
+
+function sameDocsHandeler(index){
     clearCard()
-    InjectData(SAMEDOCS)
+    InjectData(SAMEDOCS[index])
 }
 function checkHandler(event){
     clearCard()
@@ -85,20 +106,37 @@ function checkHandler(event){
 
 
 function generateBtns(){
-    let nomDocs = ''
-    SAMEDOCS.docs.forEach(doc=> {
-        nomDocs+= doc.nom_document + ", " 
-    })
 
-    let buttons = `
-        <button id="btnSameDoc" onClick="
-            sameDocsHandeler()
-        ">`+ nomDocs  +` </button>
-    `
+    let buttons = ''
+    if(SAMEDOCS.length > 0){
+        let sameDocsNoms = ''
+        SAMEDOCS.forEach((doc,index) => {
+            doc.docs.forEach(doc=> {
+                sameDocsNoms += doc.nom_document + ", " 
+            })
+            buttons += `
+                <button  class='show-btn' id="btnSameDoc ` + (index + 1) +`" onClick="
+                    sameDocsHandeler(`+ index +`)
+                ">`+ sameDocsNoms  +` </button>
+            `
+            sameDocsNoms = ''
+        })
+
+    }
+    
+    // SAMEDOCS.docs.forEach(doc=> {
+    //     nomDocs+= doc.nom_document + ", " 
+    // })
+
+    // buttons += `
+    //     <button id="btnSameDoc" onClick="
+    //         sameDocsHandeler()
+    //     ">`+ nomDocs  +` </button>
+    // `
 
     if(SEPARATEDOCS.length > 0){
         SEPARATEDOCS.forEach((doc,index)=>{
-            buttons += `<button id="btnSeparateDoc` + (index + 1) +`" onClick={checkHandler(`+index+`)}>`+ doc.docs.nom_document  +` </button>`
+            buttons += `<button class='show-btn' id="btnSeparateDoc` + (index + 1) +`" onClick={checkHandler(`+index+`)}>`+ doc.docs.nom_document  +` </button>`
         })
     }
 
@@ -110,8 +148,12 @@ function generateBtns(){
 function manageDataSeparation(data){
     console.log('here')
     if(data.docs.sameDocs.length > 0){
-        SAMEDOCS.cardIdentity = data.cardIdentity
-        SAMEDOCS.docs = data.docs.sameDocs
+        data.docs.sameDocs.forEach(doc => {
+            SAMEDOCS.push({
+                cardIdentity: data.cardIdentity,
+                docs:doc
+            })
+        })
     }
     if(data.docs.separateDocs.length > 0){
         data.docs.separateDocs.forEach(doc => {
@@ -144,8 +186,8 @@ function checkData(data){
     //get docs 
     let docs = new Object()
     checkDocs(data.docs)
-    // docs.sameDocs = checkDocs(data.docs).sameDocs
-    // docs.separateDocs = checkDocs(data.docs).separateDocs
+    docs.sameDocs = checkDocs(data.docs).sameDocs
+    docs.separateDocs = checkDocs(data.docs).separateDocs
 
     return {cardIdentity,docs}
 
@@ -155,86 +197,94 @@ function checkDocs(data){
     // console.log(docs)
     // console.log(data)
     let docs = data
-    if(docs.length > 0){ 
-        let sameDocs = new Array()
-        for (let index = 0; index < docs.length; index++) {
-            // console.log(docs)
 
-            // console.log(index)
+    //to store docs with same enre_date
+    // let sameDocs = new Array()
+    let sameDocs = new Array()
+    
+    //to store docs with different enre_date
+    let separateDocs = new Array()
+
+
+    if(docs.length > 0){ 
+
+        for (let index = 0; index < data.length; index++) {
+
             let doc1 = new Array()
-            // if(sameDocs.length > 0){
-            //     let dc = sameDocs[0].find(doc => {
-            //         return doc.date_enreg_banq !== docs[index].date_enreg_banq
-            //     })
-            //     // console.log(dc)
-            //     if (dc != undefined) {
-            //         // debugger
-            //         doc1.push(dc)     
-            //         // console.log(doc1)
-            //         docs.forEach((doc)=>{
-            //             // console.log(docs[index])
-            //             if (doc.nom_document !== doc1[0].nom_document && doc.date_enreg_banq === doc1[0].date_enreg_banq) {
-            //                 doc1.push(doc)
-            //             }
-            //         })
-            //         // console.log(doc1)
-            //         doc1.length > 0 && sameDocs.push(doc1)
-            //     }
-            // }else{
-                doc1.push(docs[index])
-                // console.log(docs)
-                docs.forEach((doc)=>{
-                    // console.log(docs[index])
-                    if (doc.nom_document !== doc1[0].nom_document && doc.date_enreg_banq === doc1[0].date_enreg_banq) {
-                        doc1.push(doc)
-                    }
-                })
-                // console.log(doc1)
-                doc1.length > 0 && sameDocs.push(doc1)
+                doc1.push(data[index])
+            
+                if(
+                    docs.find(it=>{
+                        return it.date_enreg_banq === doc1[0].date_enreg_banq && it.nom_document !== doc1[0].nom_document
+                    })
+                ){
+                    // console.log(10)
+                    let doc11 = docs.filter(it=>{
+                        return it.date_enreg_banq === doc1[0].date_enreg_banq && it.nom_document !== doc1[0].nom_document
+                    })
+                    doc1 = doc1.concat(doc11)
+                    sameDocs.push(doc1)
+                    // console.log(doc1)
+                    
+                    docs = docs.filter(it=>{
+                        return it.date_enreg_banq !== doc1[0].date_enreg_banq
+                    })
+                    // console.log(docs)
+                }
+
+                // docs.forEach((doc)=>{
+                //     // console.log(docs[index])
+                //     if (doc.nom_document !== doc1[0].nom_document && doc.date_enreg_banq === doc1[0].date_enreg_banq) {
+                //         doc1.push(doc)
+                //     }
+                // })
+                // // console.log(doc1)
+                // doc1.length > 0 && sameDocs.push(doc1)
             // }
 
-            if(sameDocs.length > 0) { 
-                docs = docs.filter(it=>{
-                    // console.log(it.date_enreg_banq)
-                    // console.log(sameDocs[sameDocs.length - 1][0].date_enreg_banq)
-                    return it.date_enreg_banq !== sameDocs[sameDocs.length - 1][0].date_enreg_banq
-                })
-                // console.log(docs)
-            }
-        }
-        
-        console.log(sameDocs)
-        console.log('---------')
-        let separateDocs = new Array()
-        let docs2 = data
-         for (let index = 0; index < docs2.length; index++) {
-            
-            console.log(index)
-           let doc2 = docs2[index]
-                // console.log(doc2)
-                if(
-                    !docs.find(it=>{
-                        return it.date_enreg_banq === doc2.date_enreg_banq
-                    })
-                    ){
-                        docs2 = docs2.filter(it=>{
-                            return it.date_enreg_banq !== doc2.date_enreg_banq
-                        })
-                        docs2.length > 0 && separateDocs.push(doc2)
-                    }
-                    // docs2.length > 0 && separateDocs.push(docs2)
-                    // console.log(docs2)
-
             // if(sameDocs.length > 0) { 
-            //     docs2 = docs.filter(it=>{
-            //         console.log(it.date_enreg_banq)
-            //         console.log(sameDocs[sameDocs.length - 1][0].date_enreg_banq)
+            //     docs = docs.filter(it=>{
+            //         // console.log(it.date_enreg_banq)
+            //         // console.log(sameDocs[sameDocs.length - 1][0].date_enreg_banq)
             //         return it.date_enreg_banq !== sameDocs[sameDocs.length - 1][0].date_enreg_banq
             //     })
             //     // console.log(docs)
-            // } 
+            // }
         }
-        console.log(separateDocs)
+        
+        // console.log(sameDocs)
+
+        // console.log(sameDocs) 
+        
+        // // debugger
+
+
+        // console.log('---------')
+        // let docs2 = data
+        // // console.log(docs2)
+        //  for (let index = 0; index < data.length; index++) {
+            
+        //    let doc2 = data[index]
+           
+        //         if(
+        //             !docs2.find(it=>{
+        //                 return it.date_enreg_banq === doc2.date_enreg_banq && it.nom_document !== doc2.nom_document
+        //             })
+        //             ){
+        //                 docs2 = docs2.filter(it=>{
+        //                     return it.date_enreg_banq !== doc2.date_enreg_banq
+        //                 })
+        //                 separateDocs.push(doc2)
+        //                 // console.log(doc2)
+        //             }
+        //             // docs2.length > 0 && separateDocs.push(docs2)
+        //             // console.log(docs2)
+        // }
+        
+        
+        separateDocs = docs
+        // console.log(separateDocs)
+       
 
 
         
@@ -265,7 +315,11 @@ function checkDocs(data){
     //         }
 
     //     })
-    // return {sameDocs, separateDocs}
+    return {sameDocs, separateDocs}
+    }else{
+
+        sameDocs.push(data)
+        return {sameDocs}
     }
     // return{sameDocs: [docs]}
 
@@ -314,13 +368,13 @@ function takeshot(docs) {
     // to the output div
     html2canvas(front).then(
         function (canvas) {
-            download(canvas,"front " + SAMEDOCS.cardIdentity.proprietaire)
+            download(canvas,"front " + SAMEDOCS[0].cardIdentity.proprietaire)
         })
     html2canvas(back).then(
         function (canvas) {
-            download(canvas,"back " + SAMEDOCS.cardIdentity.proprietaire)
+            download(canvas,"back " + SAMEDOCS[0].cardIdentity.proprietaire)
         })
-        clearCard()
+    clearCard()
 }
 
 
