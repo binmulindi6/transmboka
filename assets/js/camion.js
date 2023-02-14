@@ -26,25 +26,30 @@ const GetHeader = () => {
 
 ///Fech data
 
-// fetch(
-//     "https://webapp.e-transport.cd/api/controller.php?fetch_motard_details_for_card=&id=" + ID,
-//     { headers: GetHeader }
-//   )
-//     .then((res) => res.json())
-//     .then((res) => {
-//         if(res[0].code_unique_cond){
-//             CardData = res[0]
-//             console.log(CardData)
-//             showData(loadData(CardData))
-
-//         }else{
-//             console.log(res)
-//         }
-
-//     })
-// .catch((error) => {
-//       console.error('Error:', error)
-// })
+fetch(
+    "https://webapp.e-transport.cd/api/controller.php?fetch_car_details_for_card=&id=" + ID,
+    { headers: GetHeader }
+  )
+    .then((res) => res.json())
+    .then((res) => {
+      if(res.car){
+        // console.log(res)
+        generateData(res)
+      // setData(res)
+    //   qrcode.makeCode(setData(res).numeroId);
+    //   JsBarcode("#barcode", setData(res).numeroId, {
+    //       format: "CODE128",
+    //       lineColor: "#000",
+    //       fontSize : "50",
+    //       width: 9,
+    //       height: 100,
+    //       displayValue: false
+    //     });
+      }
+    })
+.catch((error) => {
+      console.error('Error:', error)
+})
 
 
 //btn
@@ -75,25 +80,7 @@ let qrCode = document.querySelector('#qrcode')
 let dateDelivrance = document.querySelector('#date-delivrance')
 let dateExpiration = document.querySelector('#date-expiration')
 
-const loadData = (data) => {
-    
-    const identityData ={
-        nom: data.nom_cond + " " + data.postnom_cond,
-        prenom: data.prenom_cond,
-        nationalite: data.nationalite ? data.nationalite : 'Congolaise',
-        profession: 'Motocycliste',
-        naissance: data.lieu_naiss_cond + ', ' + data.date_naiss_cond,
-        adresse: 'Q '+ data.quartier_cond + '/' + data.commune_cond + '/' + data.ville_cond,
-        dateDelivrance: data.date_livraison_carte_motard,
-        dateExpiration: data.date_exp_carte_motard,
-        nn: data.numero_carte_elect,
-        numero: data.numero_gilet,
-        // img:'/assets/img/avatar.jpg',
-        img:'https://webapp.e-transport.cd/upload/profileImg/'+data.photo_cond,
-    }
 
-    return identityData
-}
 
 function showData(data){
     generateData(data)
@@ -116,7 +103,7 @@ const identityData ={
     idMt: 'M12345678945651'
 }
 
-generateData(identityData)
+// generateData(identityData)
 
 // btnGenerateFront.addEventListener('click', ()=>{
 //     generateData(identityData)
@@ -130,21 +117,42 @@ generateData(identityData)
 // })
 
 
+// function generateData(data){
+
+//     plaque.innerHTML =  data.plaque
+//     chassis.innerHTML =  data.chassis
+//     marque.innerHTML =  data.marque
+//     poids.innerHTML =  data.poidsAVide
+//     capacite.innerHTML =  data.capacite
+//     genre.innerHTML =  data.genre
+//     couleur.innerHTML =  data.couleur
+//     proprietaire.innerHTML =  data.proprietaire
+//     adresse.innerHTML = data.adresse
+//     idMt.innerHTML = data.idMt
+
+//     //qr
+//     qrcode.makeCode(data.idMt);
+// }
+
+
 function generateData(data){
 
-    plaque.innerHTML =  data.plaque
-    chassis.innerHTML =  data.chassis
-    marque.innerHTML =  data.marque
-    poids.innerHTML =  data.poidsAVide
-    capacite.innerHTML =  data.capacite
-    genre.innerHTML =  data.genre
-    couleur.innerHTML =  data.couleur
-    proprietaire.innerHTML =  data.proprietaire
-    adresse.innerHTML = data.adresse
-    idMt.innerHTML = data.idMt
+    plaque.innerHTML =  data.car.num_plaque_mt
+    chassis.innerHTML =  data.car.num_chassis_mt
+    marque.innerHTML =  data.car.marque_modele_mt
+    poids.innerHTML =  '9T'
+    capacite.innerHTML =  '10T'
+    genre.innerHTML =  data.car.genre
+    couleur.innerHTML =  data.car.couleur_mt
+    
+    //owner
+    proprietaire.innerHTML =  data.owner.nom_cond + ' ' + data.owner.prenom_cond
+    adresse.innerHTML = data.owner.quartier_cond + '/' + data.owner.commune_cond
+
+    idMt.innerHTML = data.car.code_unique_mt
 
     //qr
-    qrcode.makeCode(data.idMt);
+    qrcode.makeCode(data.car.code_unique_mt);
 }
 
 function clearData(){
