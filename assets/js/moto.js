@@ -1,7 +1,9 @@
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const ID =  urlParams.get('id_cond')
+const ID_GILET =  urlParams.get('id_gilet')
 console.log(ID)
+console.log(ID_GILET)
 
 let CardData = {}
 
@@ -20,7 +22,7 @@ const GetHeader = () => {
 ///Fech data
 
 fetch(
-    "https://webapp.e-transport.cd/api/controller.php?fetch_motard_details_for_card=&id=" + ID,
+    "https://webapp.e-transport.cd/api/controller.php?fetch_motard_details_for_card=&id=" + ID +"&id_gilet=" + ID_GILET,
     { headers: GetHeader }
   )
     .then((res) => res.json())
@@ -41,8 +43,8 @@ fetch(
 
 
 //btn
-let btnGenerateFront = document.querySelector('#btn-generate-front');
-let btnClearFront = document.querySelector('#btn-clear-front');
+// let btnGenerateFront = document.querySelector('#btn-generate-front');
+// let btnClearFront = document.querySelector('#btn-clear-front');
 let btnDownload = document.querySelector('#btn-download')
 // btnDownload.style.display = 'none';
 
@@ -66,21 +68,28 @@ let qrCode = document.querySelector('#qrcode')
 let dateDelivrance = document.querySelector('#date-delivrance')
 let dateExpiration = document.querySelector('#date-expiration')
 
+const spliteDate = (date) => {
+    
+    const dateN = date.split('-')
+    return dateN[2] + '/' + dateN[1] + '/' + dateN[0]
+}
+
 const loadData = (data) => {
+
     
     const identityData ={
         nom: data.nom_cond + " " + data.postnom_cond,
         prenom: data.prenom_cond,
         nationalite: data.nationalite ? data.nationalite : 'Congolaise',
         profession: 'Motocycliste',
-        naissance: data.lieu_naiss_cond + ', ' + data.date_naiss_cond,
+        naissance: data.lieu_naiss_cond + ', ' + spliteDate(data.date_naiss_cond),
         adresse: 'Q '+ data.quartier_cond + '/' + data.commune_cond + '/' + data.ville_cond,
-        dateDelivrance: data.date_livraison_carte_motard,
-        dateExpiration: data.date_exp_carte_motard,
+        dateDelivrance: spliteDate(data.date_livraison_carte_motard),
+        dateExpiration: spliteDate(data.date_exp_carte_motard),
         nn: data.numero_carte_elect,
         numero: data.numero_gilet,
         // img:'/assets/img/avatar.jpg',
-        img:'https://webapp.e-transport.cd/upload/profileImg/'+data.photo_cond,
+        img:'../../../../upload/profileImg/'+data.photo_cond,
     }
 
     return identityData
@@ -99,16 +108,16 @@ function showData(data){
 
 
 
-btnGenerateFront.addEventListener('click', ()=>{
-    generateData(identityData)
-    qrcode.makeCode(identityData.nn);
-    btnDownload.style.display = 'block';
-});
+// btnGenerateFront.addEventListener('click', ()=>{
+//     generateData(identityData)
+//     qrcode.makeCode(identityData.nn);
+//     btnDownload.style.display = 'block';
+// });
 
-btnClearFront.addEventListener('click', ()=>{
-    clearData()
-    btnDownload.style.display = 'none';
-})
+// btnClearFront.addEventListener('click', ()=>{
+//     clearData()
+//     btnDownload.style.display = 'none';
+// })
 
 
 function generateData(data){
@@ -165,8 +174,8 @@ function clearData(){
         function takeshot(filename = "Card") {
             let front =
                 document.getElementById('card-front');
-            let back =
-                document.getElementById('card-back');
+            // let back =
+            //     document.getElementById('card-back');
   
             // Use the html2canvas
             // function to take a screenshot
@@ -174,12 +183,12 @@ function clearData(){
             // to the output div
             html2canvas(front).then(
                 function (canvas) {
-                    download(canvas,"front" + filename)
+                    download(canvas,CardData.nom_cond + "_" + CardData.postnom_cond)
                 })
-            html2canvas(back).then(
-                function (canvas) {
-                    download(canvas,"back" + filename)
-                })
+            // html2canvas(back).then(
+            //     function (canvas) {
+            //         download(canvas,"back" + filename)
+            //     })
         }
 
 

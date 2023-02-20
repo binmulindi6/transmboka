@@ -290,7 +290,7 @@ body{
 .avatar-container{
     background: #FFF;
     height: 400px;
-    width: 400px;
+    width: auto;
     margin-top: auto;
     margin-bottom: auto;
     border: 0.5px solid rgb(125, 125, 125);

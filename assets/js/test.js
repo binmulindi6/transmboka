@@ -165,6 +165,11 @@ function manageDataSeparation(data){
     }
 }
 
+const formatDate = (date) => {
+    const dateN = date.split('-')
+    return dateN[2] + '/' + dateN[1] + '/' + dateN[0]
+}
+
 
 function checkData(data){
     //get identity
@@ -359,21 +364,33 @@ function takeshot(docs) {
         document.getElementById('card-front');
     let back =
         document.getElementById('card-back');
+    const date = new Date()
+    const ndate = date.getDay() + '-' + (date.getDate()) + '-' + date.getFullYear()
+    // const time
 
-    
-
-    // Use the html2canvas
-    // function to take a screenshot
-    // and append it
-    // to the output div
-    html2canvas(front).then(
-        function (canvas) {
-            download(canvas,"front " + SAMEDOCS[0].cardIdentity.proprietaire)
-        })
-    html2canvas(back).then(
-        function (canvas) {
-            download(canvas,"back " + SAMEDOCS[0].cardIdentity.proprietaire)
-        })
+    if(SAMEDOCS.lenght > 0){
+        // // Use the html2canvas
+        // // function to take a screenshot
+        // // and append it
+        // // to the output div
+        html2canvas(front).then(
+            function (canvas) {
+                download(canvas,SAMEDOCS[0].cardIdentity.plaque + "_" + ndate + '-Front')
+            })
+        html2canvas(back).then(
+            function (canvas) {
+                download(canvas,SAMEDOCS[0].cardIdentity.plaque + "_" + ndate + '-Back')
+            })
+    }else{
+        html2canvas(front).then(
+            function (canvas) {
+                download(canvas,SEPARATEDOCS[0].cardIdentity.plaque + "_" + ndate + '-Front')
+            })
+        html2canvas(back).then(
+            function (canvas) {
+                download(canvas,SEPARATEDOCS[0].cardIdentity.plaque + "_" + ndate + '-Back')
+            })
+    }
     clearCard()
 }
 
@@ -489,13 +506,13 @@ function injectCardFront(data) {
     <br>
     <div id="card-back" class="card-container">
                 <div class="container header">
-                    <img class="icons" src="/assets/img/flag.png"  alt="flag">
+                    <img class="icons" src="assets/img/flag.png"  alt="flag">
                     <div class="titles">
                         <span class="rep">REPUBLIQUE DEMOCRATIQUE DU CONGO</span>
                         <span class="prov">PROVINCE DU SUD-KIVU</span>
                         <span class="min">Ministère des Transport et Voies de Communication</span>
                     </div>
-                    <img class="icons" src="/assets/img/armoirie.png"  alt="armoirie">
+                    <img class="icons" src="assets/img/armoirie.png"  alt="armoirie">
                 </div>
                 <div class="container card-body">
                     <div class="text">
@@ -566,7 +583,7 @@ function injectCardBack(data){
         
         document = `
         <tr class="identity-data">
-        <td class="identity-title">DATE DE CONTROLE </td> <td id="date-controle" class="identity-data-content">: `+checkTypeDocs(data.docs).dateControle+`</td>
+        <td class="identity-title">DATE DE CONTROLE </td> <td id="date-controle" class="identity-data-content">: `+ formatDate(checkTypeDocs(data.docs).dateControle) +`</td>
         </tr>
         <tr class="identity-data">
         <td class="identity-title">GARAGE </td> <td id="garage" class="identity-data-content">: `+checkTypeDocs(data.docs).garage+`</td>
@@ -586,9 +603,9 @@ function injectCardBack(data){
                         </div>
                         <hr id="line">
                         <table>
-                            <tr class="dates-content" ><td>DATE DE DELIVRANCE </td> <td id="date-delivrance" class="identity-data-content">: `+checkDates(data.docs).dateDelivrance+`</td></tr>
+                            <tr class="dates-content" ><td>DATE DE DELIVRANCE </td> <td id="date-delivrance" class="identity-data-content">: `+formatDate(checkDates(data.docs).dateDelivrance)+`</td></tr>
                                 <tr class="dates-content">
-                                    <td>DATE D'EXPIRATION </td> <td id="date-expiration" class="identity-data-content">: `+checkDates(data.docs).dateExpiration+`</td>
+                                    <td>DATE D'EXPIRATION </td> <td id="date-expiration" class="identity-data-content">: `+formatDate(checkDates(data.docs).dateExpiration)+`</td>
                                 </tr>
                         </table>
                     </div>
