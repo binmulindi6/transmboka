@@ -47,7 +47,7 @@ const PostHeader = () => {
   }
 
 ///Fech data
-
+console.log(delete("https://webapp.e-transport.cd/api/controller.php?fetch_car_details_for_card=&id=" + ID))
 fetch(
     "https://webapp.e-transport.cd/api/controller.php?fetch_car_details_for_card=&id=" + ID,
     { headers: GetHeader }
@@ -58,7 +58,7 @@ fetch(
       //chck
       if (res.docs.length > 0) {
           const data = (checkData(res))
-            // console.log(data)
+            console.log(data)
             manageDataSeparation(data)
             btnsContainer.innerHTML =  generateBtns()
             const showBtns = document.querySelectorAll('.show-btn')
@@ -78,7 +78,7 @@ fetch(
 function addActive(nodeList) {
     nodeList.forEach(btn=>{
         btn.addEventListener('click', ()=> {
-            console.log(btn)
+            // console.log(btn)
             nodeList.forEach(btnn => {
                 // btnn.classList.remove('active')
                 btnn.style.backgroundColor = '#626262' 
@@ -114,11 +114,22 @@ function generateBtns(){
             doc.docs.forEach(doc=> {
                 sameDocsNoms += doc.nom_document + ", " 
             })
-            buttons += `
-                <button  class='show-btn' id="btnSameDoc ` + (index + 1) +`" onClick="
-                    sameDocsHandeler(`+ index +`)
-                ">`+ sameDocsNoms  +` </button>
-            `
+            console.log(SAMEDOCS)
+            if(SAMEDOCS[0].docs[0].impression_document === 'imprimE'){
+                console.log(12)
+                buttons += `
+                    <button  class='show-btn' id="btnSameDoc ` + (index + 1) +`" onClick="
+                        sameDocsHandeler(`+ index +`)
+                    ">`+ sameDocsNoms  +` 🖨✅</button>
+                `
+            }else{
+                console.log(13)
+                buttons += `
+                    <button  class='show-btn' id="btnSameDoc ` + (index + 1) +`" onClick="
+                        sameDocsHandeler(`+ index +`)
+                    ">`+ sameDocsNoms  +` </button>
+                `
+            }
             sameDocsNoms = ''
         })
 
@@ -136,7 +147,20 @@ function generateBtns(){
 
     if(SEPARATEDOCS.length > 0){
         SEPARATEDOCS.forEach((doc,index)=>{
-            buttons += `<button class='show-btn' id="btnSeparateDoc` + (index + 1) +`" onClick={checkHandler(`+index+`)}>`+ doc.docs.nom_document  +` </button>`
+            // console.log(doc)
+            if(doc.docs.impression_document === 'imprimE'){
+                buttons += `<button 
+                        class='show-btn' id="btnSeparateDoc` 
+                        + (index + 1) +`" onClick={checkHandler(`+index+`)}>`
+                        + doc.docs.nom_document  
+                        +`  🖨✅</button>`
+            }else{
+                buttons += `<button 
+                        class='show-btn' id="btnSeparateDoc` 
+                        + (index + 1) +`" onClick={checkHandler(`+index+`)}>`
+                        + doc.docs.nom_document
+                        +` </button>`
+            }
         })
     }
 
@@ -188,12 +212,15 @@ function checkData(data){
     cardIdentity.proprietaire =  data.owner.nom_cond + " " + data.owner.prenom_cond
     cardIdentity.adresse =  data.owner.commune_cond + "/" + data.owner.quartier_cond
 
+    //printing
+    // cardIdentity.impression = data.doc
+
     //get docs 
     let docs = new Object()
     checkDocs(data.docs)
     docs.sameDocs = checkDocs(data.docs).sameDocs
     docs.separateDocs = checkDocs(data.docs).separateDocs
-
+    // console.log(docs)
     return {cardIdentity,docs}
 
 }
@@ -359,38 +386,57 @@ let cardData = {
 ////takeShoot
 
 function takeshot(docs) {
-    console.log(docs)
+    // console.log(docs.toString())
+
+    if(docs[0]){
+        // console.log('isArray')
+        fetch('https://webapp.e-transport.cd/api/controller.php?' + new URLSearchParams({
+            update_printed: 'value',
+            id: docs.toString(),
+        }))
+        .then((res)=> res.json())
+        .then((res)=>{
+            console.log(res)
+        })
+    }
+
+    
     let front =
-        document.getElementById('card-front');
+    document.getElementById('card-front');
     let back =
         document.getElementById('card-back');
-    const date = new Date()
-    const ndate = date.getDay() + '-' + (date.getDate()) + '-' + date.getFullYear()
-    // const time
 
-    if(SAMEDOCS.lenght > 0){
-        // // Use the html2canvas
-        // // function to take a screenshot
-        // // and append it
-        // // to the output div
-        html2canvas(front).then(
-            function (canvas) {
-                download(canvas,SAMEDOCS[0].cardIdentity.plaque + "_" + ndate + '-Front')
-            })
-        html2canvas(back).then(
-            function (canvas) {
-                download(canvas,SAMEDOCS[0].cardIdentity.plaque + "_" + ndate + '-Back')
-            })
-    }else{
-        html2canvas(front).then(
-            function (canvas) {
-                download(canvas,SEPARATEDOCS[0].cardIdentity.plaque + "_" + ndate + '-Front')
-            })
-        html2canvas(back).then(
-            function (canvas) {
-                download(canvas,SEPARATEDOCS[0].cardIdentity.plaque + "_" + ndate + '-Back')
-            })
-    }
+    
+
+        const date = new Date()
+        const ndate = date.getDay() + '-' + (date.getDate()) + '-' + date.getFullYear()
+        // const time
+    
+        if(SAMEDOCS.lenght > 0){
+            // // Use the html2canvas
+            // // function to take a screenshot
+            // // and append it
+            // // to the output div
+            html2canvas(front).then(
+                function (canvas) {
+                    download(canvas,SAMEDOCS[0].cardIdentity.plaque + "_" + ndate + '-Front')
+                })
+            html2canvas(back).then(
+                function (canvas) {
+                    download(canvas,SAMEDOCS[0].cardIdentity.plaque + "_" + ndate + '-Back')
+                    window.location.reload(false)
+                })
+        }else{
+            html2canvas(front).then(
+                function (canvas) {
+                    download(canvas,SEPARATEDOCS[0].cardIdentity.plaque + "_" + ndate + '-Front')
+                })
+            html2canvas(back).then(
+                function (canvas) {
+                    download(canvas,SEPARATEDOCS[0].cardIdentity.plaque + "_" + ndate + '-Back')
+                    window.location.reload(false)
+                })
+        }
     clearCard()
 }
 
@@ -459,7 +505,7 @@ function checkDataDocs(data) {
     
 }
 function checkDates(data) {
-    console.log(data)
+    // console.log(data)
     if (data.length > 0) {
         return {dateDelivrance: data[0].date_enreg_banq, dateExpiration: data[0].date_exp_doc}
     }
@@ -495,14 +541,14 @@ function injectCardFront(data) {
         data.docs.forEach(doc=>{
             docIds.push(doc.id_mt_document)
         })
-        console.log(docIds)
+        // console.log(docIds)
     } else {
         docIds.push(data.docs.id_mt_document)
     }
 
 
     return ` 
-    <button id="btn-download"onclick="takeshot(`+(docIds)+`)" >Download</button>
+    <button id="btn-download"onclick="takeshot([`+(docIds)+`])" >Download</button>
     <br>
     <div id="card-back" class="card-container">
                 <div class="container header">
