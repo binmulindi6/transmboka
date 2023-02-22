@@ -228,3 +228,5 @@ var qrcode = new QRCode("qrcode");
 function makeCode (elText) {    
   qrcode.makeCode(elText.value);
 }
+
+
