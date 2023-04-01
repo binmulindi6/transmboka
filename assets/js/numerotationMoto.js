@@ -17,6 +17,10 @@ const territories = [
         name: 'KAMITUGA',
         slug: 'KG'
     },
+    {
+        name: 'MULENGE',
+        slug: 'ML'
+    },
 ]
 
 //vars
