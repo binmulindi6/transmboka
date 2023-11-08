@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document de Bord</title>
+    <link rel="stylesheet" href="assets/css/cct.css">
+    <script src="/assets/js/htmltoimage.min.js"></script>
+    <script src="/assets/js/screenshot.min.js"></script>
+    <script src="/assets/js/jsbarcode.min.js"></script>
+    <script src="/assets/js/jquery.min.js" ></script>
+    <script src="/assets/js/qrcode.min.js" ></script>
+</head>
+<body>
+    <div id="root">
+
+        <div class="btn-container">
+            <button id="btn-generate-front" >Generate</button>
+            <button id="btn-clear-front" >Clear</button>
+            <button id="btn-download"onclick="takeshot()" >Download</button>
+           </div>
+
+           <div>
+            <h1>Screenshot :</h1>
+            <div id="output"></div>
+           </div>
+        <br>
+         
+            <div id="card-back" class="card-container">
+                <div class="container header">
+                    <img class="icons" src="/assets/img/armoirie.png"  alt="armoirie">
+                    <div class="titles">
+                        <span class="rep">REPUBLIQUE DEMOCRATIQUE DU CONGO</span>
+                        <span class="prov">PROVINCE DU SUD-KIVU</span>
+                        <span class="min">Ministère des Transport et Voies de Communication</span>
+                    </div>
+                    <img class="icons" src="/assets/img/flag.png"  alt="flag">
+                </div>
+                <div class="container card-body">
+                    <div class="text">
+                        <span>DOCUMENTS DE BORDS POUR LES VEHICULES ET MOTOS</span>
+                            <span>Certificat de contrôle technique</span>
+                    </div>
+                </div>
+                <div class=" cars">
+                    <img class="car" src="/assets/img/bike.png"  alt="flag">
+                    <img class="car" src="/assets/img/actros.png"  alt="flag">
+                    <img class="car" src="/assets/img/actros.png"  alt="flag">
+                </div>
+            </div>
+        
+            <div id="card-front" class="card-container">
+                <div class="card-front-title">
+                    <span>IDENTIFICATION DU VEHICULE</span>
+                </div>                
+                <div class="joker">
+                    <div class="card-front-body">
+                        <table class="identity" >
+                            <tr class="identity-data">
+                                <td class="identity-title">GENRE </td> <td id="genre" class="identity-data-content"></tdtd>
+                            </tr>
+                            <tr class="identity-data">
+                                <td class="identity-title">MARQUE </td> <td id="marque" class="identity-data-content"></td>
+                            </tr>
+                            <tr class="identity-data">
+                                <td class="identity-title">PLAQUE </td> <td id="plaque" class="identity-data-content"></td>
+                            </tr>
+                            <tr class="identity-data">
+                                <td class="identity-title">NO DE CHASIS </td> <td id="no-chasis" class="identity-data-content"></td>
+                            </tr>
+                            <tr class="identity-data">
+                                <td class="identity-title">COULEUR </td> <td id="couleur" class="identity-data-content"></td>
+                            </tr>
+                            <tr class="identity-data">
+                                <td class="identity-title">PROPRIETAIRE </td> <td id="proprietaire" class="identity-data-content"></td>
+                            </tr>
+                            <tr class="identity-data">
+                                <td class="identity-title">ADRESSE </td> <td id="adresse" class="identity-data-content"></td>
+                            </tr>
+                            <tr class="identity-data">
+                                <td class="identity-title">DATE DE CONTROLE </td> <td id="date-controle" class="identity-data-content"></td>
+                            </tr>
+                            <tr class="identity-data">
+                                <td class="identity-title">GARAGE </td> <td id="garage" class="identity-data-content"></td>
+                            </div>
+                            
+                            <tr class="identity-data">
+                                <td class="identity-title">No PV D'EXPERTISE </td> <td id="no-pv-expertise" class="identity-data-content"></td>
+                            </tr>
+                        </table>
+                        <div class="qr-container">
+                            <!-- <img id="qr-code" src="" alt=""> -->
+                            <div id="qrcode"></div>
+                        </div>
+                    </div>
+                    <hr id="line">
+                    <table>
+                        <tr class="dates-content" ><td>DATE DE DELIVRANCE </td> <td id="date-delivrance" class="identity-data-content"></td></tr>
+                            <tr class="dates-content">
+                                <td>DATE D'EXPIRATION </td> <td id="date-expiration" class="identity-data-content"></td>
+                            </tr>
+                    </table>
+                </div>
+            </div>
+</body>
+<script src="/assets/js/index.js" ></script>
+</html>
