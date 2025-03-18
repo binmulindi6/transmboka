@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document de Bord</title>
+    <link rel="stylesheet" href="assets/css/ac.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+    <!-- <script src="/assets/js/htmltoimage.min.js"></script> -->
+    <script src="/assets/js/screenshot.min.js"></script>
+    <script src="/assets/js/jsbarcode.min.js"></script>
+    <script src="/assets/js/jquery.min.js"></script>
+    <script src="/assets/js/qrcode.min.js"></script>
+  </head>
+  <body>
+    <div id="root">
+      <div class="btn-container">
+        <input type="hidden" id="qrcode-value" value="AC-9402NCQ25" />
+        <input type="hidden" id="codebar-value" value="tshopo.etax.cd" />
+        <button id="btn-download" onclick="takeshot()">Download</button>
+      </div>
+
+      <!-- <div id="card-back" class="card-container">
+        <div class="container header">
+          <img class="icons" src="/assets/img/flag.png" alt="flag" />
+          <div class="titles">
+            <span class="rep">REPUBLIQUE DEMOCRATIQUE DU CONGO</span>
+            <span class="prov">PROVINCE DE LA TSHOPO</span>
+            <span class="min"
+              >Ministre de l'Economie, Plan, Budget, Commerce, Entrepreneuriat,
+              Petites et Moyenne Entreprises et Porte-parole du Gouvernement
+              Provincial</span
+            >
+          </div>
+          <img class="icons" src="/assets/img/dgrpt.png" alt="armoirie" />
+        </div>
+        <div class="container card-body">
+          <div class="text">
+            <span>DIVISION PROVINCIALE DES PME</span>
+          </div>
+        </div>
+        <div class="container footer">
+          <svg id="barcode" class="barcode"></svg>
+        </div>
+      </div> -->
+
+      <div id="card-front" class="card-container">
+        <div class="card-front-title">
+          <span
+            >CERTIFICAT D'IDENTIFICATION <br />
+            ACTIVITÉ / COMMERCIALE</span
+          >
+        </div>
+        <div class="joker">
+          <div class="card-front-body">
+            <div class="identity-container">
+              <table class="identity">
+                <tr class="identity-data">
+                  <td class="identity-ID">CODE UNIQUE</td>
+                  <td id="code_unique" class="identity-data-content"> : AC-9402NCQ25
+                  </td>
+                  <td rowspan="5">
+                    <div class="qr-container">
+                      <div id="qrcode"></div>
+                    </div>
+                  </td>
+                </tr>
+                <tr class="identity-data">
+                  <td class="identity-title">DÉNOMINATION</td>
+                  <td id="denomination" class="identity-data-content"> : MEC SARL
+                  </td>
+                </tr>
+                <tr class="identity-data">
+                  <td class="identity-title">SIGLE</td>
+                  <td id="sigle" class="identity-data-content"> : MEC</td>
+                </tr>
+                <tr class="identity-data">
+                  <td class="identity-title">TYPE D'ACTIVITÉ</td>
+                  <td id="type_ac" class="identity-data-content"> : SARL</td>
+                </tr>
+                <tr class="identity-data">
+                  <td class="identity-title">SECTEUR D'ACTIVITE</td>
+                  <td id="secteur_activite" class="identity-data-content"> : CONSTRUCTION
+                  </td>
+                </tr>
+                <tr class="identity-data">
+                  <td class="identity-title">ADRESSE</td>
+                  <td
+                    id="secteur_activite"
+                    class="identity-data-content adresse"
+                    colspan="2"
+                  > : Av. Louis Franck, Q. Commercial, C Makiso, Kisangani,No:12
+                  </td>
+                </tr>
+              </table>
+              <hr id="line" />
+              <table>
+                <tr class="identity-data">
+                  <td class="identity-title">NIF</td>
+                  <td id="nif" class="identity-data-content"> : TSH8079ASS80</td>
+                </tr>
+                <tr class="identity-data">
+                  <td class="identity-title">PROPRIÉTAIRE</td>
+                  <td id="proprietaire" class="identity-data-content"> : ABRAHAM MULINDI TOMMY
+                  </td>
+                </tr>
+                <!-- <tr class="identity-data">
+                  <td class="identity-title">CONTACTS</td>
+                  <td id="contacts" class="identity-data-content">
+                    : +243991097363
+                  </td>
+                </tr> -->
+              </table>
+            </div>
+          </div>
+          <hr id="line" />
+          <table>
+            <tr class="dates-content">
+              <td>
+                DATE D'ENREGISTREMENT
+                <span class="identity-data-content"> : Le 12/03/2025 </span>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+    <script src="/assets/js/ac.js"></script>
+  </body>
+</html>
